@@ -155,16 +155,16 @@ export const login = async (req: Request<{}, AuthResponse, AuthRequest>, res: Re
             }
 
             // Set cookies with the session data
-            const DEV_COOKIE_OPTIONS = {
-                httpOnly: false,
-                secure: false,
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                sameSite: 'lax' as const,
+            const cookieOptions = {
+                httpOnly: process.env.NODE_ENV !== 'development',
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' as const : 'lax' as const,
                 path: '/'
             };
 
-            res.cookie('userId', userId, DEV_COOKIE_OPTIONS);
-            res.cookie('sessionId', sessionId, DEV_COOKIE_OPTIONS);
+            res.cookie('userId', userId, cookieOptions);
+            res.cookie('sessionId', sessionId, cookieOptions);
             
             return res.status(200).json({
                 message: 'Login successful',
