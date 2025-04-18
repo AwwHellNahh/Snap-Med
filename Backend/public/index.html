@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap-Med API</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4a6cf7;
+            margin-bottom: 20px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .endpoints {
+            text-align: left;
+            background-color: #f5f7fa;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .endpoints h2 {
+            margin-top: 0;
+        }
+        code {
+            background-color: #edf2f7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Snap-Med API</h1>
+        <p>Just to give you a rough idea.</p>
+
+        <div class="endpoints">
+            <h2>Available Endpoints:</h2>
+            <p><code>POST /api/auth/register</code> - Register a new user with phone number and password</p>
+            <p><code>POST /api/auth/login</code> - Authenticate a user and receive session cookies</p>
+            <p><code>GET /api/auth/session</code> - Check if the current session is valid</p>
+            <p><code>POST /api/auth/logout</code> - End the current session</p>
+            <p><code>POST /api/history</code> - Save medication history (requires auth)</p>
+            <p><code>GET /api/history</code> - Retrieve user's medication history (requires auth)</p>
+        </div>
+
+        <p style="margin-top: 40px;">For more information, Contact the Owner.</p>
+    </div>
+</body>
+</html>
