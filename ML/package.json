@@ -1,0 +1,20 @@
+{
+  "name": "ml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^0.9.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.2",
+    "node-fetch": "^3.3.2"
+  }
+}
