@@ -1,0 +1,28 @@
+### Login user first to get authentication cookies
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "phoneNumber": "+919999999999",
+    "password": "yourpassword123"
+}
+
+### Save medication history (requires auth)
+POST http://localhost:3000/api/history
+Content-Type: application/json
+
+{
+    "lines": [
+        "NEUROBION Forte",
+        "- Tablets of Vitamin B Complex with B12."
+    ],
+    "drugInfo": {
+        "generic_name": "Acetaminophen Chlorpheniramine Maleate Phenylepherine Hydrochloride",
+        "dosage_form": "TABLET",
+        "product_type": "HUMAN OTC DRUG",
+        "route": ["ORAL"]
+    }
+}
+
+### Get user's medication history (requires auth)
+GET http://localhost:3000/api/history
