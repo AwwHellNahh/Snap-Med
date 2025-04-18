@@ -9,6 +9,8 @@ import authRoutes from './routes/auth';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extended: true }));
+
 // More permissive CORS settings for development
 app.use(cors({
   origin: true, // Allow any origin in development
