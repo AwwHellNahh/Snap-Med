@@ -1,0 +1,148 @@
+### Production API Tests
+@baseUrl = https://snap-med-back.vercel.app
+@phoneNumber = +919999999999
+@password = yourpassword123
+
+### Health check endpoint
+GET {{baseUrl}}/health
+
+### =====================
+### Authentication Tests
+### =====================
+
+### Register new user
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+    "phoneNumber": "{{phoneNumber}}",
+    "password": "{{password}}"
+}
+
+### Login user (sets session cookies)
+# After running this, copy the cookies from the response headers for the subsequent requests
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "phoneNumber": "{{phoneNumber}}",
+    "password": "{{password}}"
+}
+
+### Check session status
+# Replace the Cookie header with the actual cookies from the login response
+GET {{baseUrl}}/api/auth/session
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+### Protected route test (requires auth)
+# Replace the Cookie header with the actual cookies from the login response
+GET {{baseUrl}}/api/auth/protected
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+### =====================
+### Medication History Tests
+### =====================
+
+### Save medication history
+# Replace the Cookie header with the actual cookies from the login response
+POST {{baseUrl}}/api/history
+Content-Type: application/json
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+{
+    "lines": [
+        "NEUROBION Forte",
+        "- Tablets of Vitamin B Complex with B12."
+    ],
+    "drugInfo": {
+        "generic_name": "Acetaminophen Chlorpheniramine Maleate Phenylepherine Hydrochloride",
+        "dosage_form": "TABLET",
+        "product_type": "HUMAN OTC DRUG",
+        "route": ["ORAL"]
+    }
+}
+
+### Get user's medication history
+# Replace the Cookie header with the actual cookies from the login response
+GET {{baseUrl}}/api/history
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+### Logout (clears cookies)
+# Replace the Cookie header with the actual cookies from the login response
+POST {{baseUrl}}/api/auth/logout
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+### =====================
+### More Test Cases with Different Medications
+### =====================
+
+### Save another medication history
+# Replace the Cookie header with the actual cookies from the login response
+POST {{baseUrl}}/api/history
+Content-Type: application/json
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+{
+    "lines": [
+        "PARACETAMOL 500mg",
+        "- For fever and pain relief"
+    ],
+    "drugInfo": {
+        "generic_name": "Paracetamol",
+        "dosage_form": "TABLET",
+        "product_type": "HUMAN OTC DRUG",
+        "route": ["ORAL"]
+    }
+}
+
+### Save a third medication history
+# Replace the Cookie header with the actual cookies from the login response
+POST {{baseUrl}}/api/history
+Content-Type: application/json
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+{
+    "lines": [
+        "AZITHROMYCIN 250mg",
+        "- Antibiotic for bacterial infections"
+    ],
+    "drugInfo": {
+        "generic_name": "Azithromycin",
+        "dosage_form": "TABLET",
+        "product_type": "HUMAN PRESCRIPTION DRUG",
+        "route": ["ORAL"]
+    }
+}
+
+### =====================
+### Error Testing
+### =====================
+
+### Missing Authentication
+GET {{baseUrl}}/api/history
+
+### Invalid Credentials
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "phoneNumber": "{{phoneNumber}}",
+    "password": "wrongpassword123"
+}
+
+### Invalid History Data (Missing required field)
+POST {{baseUrl}}/api/history
+Content-Type: application/json
+Cookie: userId=YOUR_USER_ID_HERE; sessionId=YOUR_SESSION_ID_HERE
+
+{
+    "lines": [
+        "INVALID MEDICINE"
+    ],
+    "drugInfo": {
+        "generic_name": "Missing Fields Test",
+        "dosage_form": "TABLET"
+        // Missing product_type and route
+    }
+}
+
