@@ -1,0 +1,26 @@
+### Register new user
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "phoneNumber": "+917980997500",
+    "password": "yourpassword123"
+}
+
+### Login user (sets session cookies)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "phoneNumber": "+917980997500",
+    "password": "yourpassword123"
+}
+
+### Check session status
+GET http://localhost:3000/api/auth/session
+
+### Protected route test (requires auth)
+GET http://localhost:3000/api/auth/protected
+
+### Logout (clears cookies)
+POST http://localhost:3000/api/auth/logout
