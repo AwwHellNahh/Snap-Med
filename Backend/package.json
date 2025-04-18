@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "Backend for Snap-Med application",
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=18.x"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
