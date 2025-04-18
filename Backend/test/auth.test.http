@@ -3,7 +3,7 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-    "phoneNumber": "+917980997500",
+    "phoneNumber": "+919999999999",
     "password": "yourpassword123"
 }
 
@@ -12,7 +12,7 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "phoneNumber": "+917980997500",
+    "phoneNumber": "+919999999999",
     "password": "yourpassword123"
 }
 
