@@ -16,28 +16,35 @@ export const saveHistory = async (req: AuthenticatedRequest, res: Response<Histo
         const userId = req.user.userId;
         const { lines, drugInfo }: HistoryRequest = req.body;
         
-        // Validate request data
+        // Validate request data - lines array is required
         if (!lines || !Array.isArray(lines) || lines.length === 0) {
             return res.status(400).json({
                 message: 'Invalid medication data: lines array is required'
             });
         }
 
-        if (!drugInfo || typeof drugInfo !== 'object') {
-            return res.status(400).json({
-                message: 'Invalid drug information'
-            });
-        }
-        
-        // Create a simple document structure with the entire payload
-        const historyData = {
+        // Create a document structure with required fields only
+        const historyData: any = {
             userId,
-            medicationData: JSON.stringify({
-                lines,
-                drugInfo
-            }),
             createdAt: new Date().toISOString()
         };
+
+        // Add medicationData only if we have valid data to store
+        try {
+            if (lines && (drugInfo || Object.keys(drugInfo || {}).length > 0)) {
+                historyData.medicationData = JSON.stringify({
+                    lines,
+                    drugInfo: drugInfo || {}
+                });
+            } else {
+                // If drugInfo is missing, still save the lines
+                historyData.medicationData = JSON.stringify({ lines });
+            }
+        } catch (e) {
+            console.error('Error stringifying medication data:', e);
+            // Provide a fallback if JSON stringify fails
+            historyData.medicationData = JSON.stringify({ lines });
+        }
 
         try {
             console.log('Creating history document with data:', {
@@ -113,17 +120,17 @@ export const getHistory = async (req: AuthenticatedRequest, res: Response<Histor
             interface DocumentFromDB {
                 $id: string;
                 userId: string;
-                medicationData: string;
+                medicationData?: string; // Now optional
                 createdAt?: string;
             }
 
             interface ParsedMedicationData {
                 lines: any[];
-                drugInfo: {
-                    generic_name: string;
-                    dosage_form: string;
-                    product_type: string;
-                    route: string[];
+                drugInfo?: {
+                    generic_name?: string;
+                    dosage_form?: string;
+                    product_type?: string;
+                    route?: string[];
                 };
             }
 
