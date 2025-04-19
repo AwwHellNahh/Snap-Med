@@ -5,34 +5,26 @@ import { Request, Response, NextFunction } from 'express';
 
 const router = Router();
 
-// Middleware to validate history data
+// Middleware to validate history data - less strict about drugInfo
 const validateHistoryData = (req: Request, res: Response, next: NextFunction) => {
     const { lines, drugInfo } = req.body;
     
+    // Only lines array is required
     if (!lines || !Array.isArray(lines)) {
         return res.status(400).json({
             message: 'Lines must be an array'
         });
     }
     
-    if (!drugInfo || typeof drugInfo !== 'object') {
+    // drugInfo itself is optional, but if provided it should be an object
+    if (drugInfo !== undefined && typeof drugInfo !== 'object') {
         return res.status(400).json({
-            message: 'Drug info must be an object'
+            message: 'Drug info must be an object if provided'
         });
     }
     
-    // Check required drug info fields
-    const requiredFields = ['generic_name', 'dosage_form', 'product_type', 'route'];
-    const missingFields = requiredFields.filter(field => !drugInfo[field]);
-    
-    if (missingFields.length > 0) {
-        return res.status(400).json({
-            message: `Missing required drug info fields: ${missingFields.join(', ')}`
-        });
-    }
-    
-    // Validate route is an array
-    if (!Array.isArray(drugInfo.route)) {
+    // If drugInfo is provided, check that route is an array if present
+    if (drugInfo && drugInfo.route !== undefined && !Array.isArray(drugInfo.route)) {
         return res.status(400).json({
             message: 'Route must be an array'
         });
