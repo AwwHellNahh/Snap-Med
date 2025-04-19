@@ -15,7 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 // Configure CORS for production and development environments
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
   ? process.env.ALLOWED_ORIGINS.split(',') 
-  : ['http://localhost:3000', 'http://localhost:5173', 'https://snap-med-back.vercel.app'];
+  : [
+      'http://localhost:3000',
+      'http://localhost:5173', 
+      'https://snap-med-back.vercel.app',
+      'https://snap-med.vercel.app',        // Frontend domain
+    ];
+
+console.log('Allowed CORS origins:', allowedOrigins);
 
 app.use(cors({
   origin: function(origin, callback) {
@@ -23,6 +30,7 @@ app.use(cors({
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+      // Origin is allowed
       callback(null, true);
     } else {
       console.log('Blocked by CORS:', origin);
@@ -39,7 +47,11 @@ app.use(cookieParser()); // Parse cookies
 
 // Basic health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', environment: process.env.NODE_ENV });
+  res.status(200).json({ 
+    status: 'ok', 
+    environment: process.env.NODE_ENV,
+    allowedOrigins: allowedOrigins
+  });
 });
 
 // Routes
