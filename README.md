@@ -125,9 +125,9 @@ Snap-Med/
 |Imon Chakraborty|Backend|<a href="https://github.com/AwwHellNahh/Snap-Med/tree/Backend">Backend</a>|
 |Nilanjan Mondal|Frontend|<a href="https://github.com/AwwHellNahh/Snap-Med/tree/Frontend">Frontend</a>|
 
-<img src="https://github.com/user-attachments/assets/b13b65a5-2b53-46c2-baca-b04abbd7f082" height=70 width=70>
-<img src="https://github.com/user-attachments/assets/72edcdd2-e06b-40a1-89a4-eeae562bf842" height=70 width=70>
-<img src="https://github.com/user-attachments/assets/c0336e8b-334c-46e0-9743-1b4df092ea23" height=70 width=70>
+<a href="https://github.com/mintRaven-05"><img src="https://github.com/user-attachments/assets/b13b65a5-2b53-46c2-baca-b04abbd7f082" height=70 width=70></a>
+<a href="https://github.com/ImonChakraborty"><img src="https://github.com/user-attachments/assets/72edcdd2-e06b-40a1-89a4-eeae562bf842" height=70 width=70></a>
+<a href="https://github.com/nilanjan-mondal"><img src="https://github.com/user-attachments/assets/c0336e8b-334c-46e0-9743-1b4df092ea23" height=70 width=70></a>
 
 
 </div>
